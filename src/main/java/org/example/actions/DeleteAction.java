@@ -4,7 +4,6 @@ import org.example.model.Task;
 import org.example.storage.JSONFileStorage;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DeleteAction implements Action {
