@@ -4,9 +4,10 @@ import org.example.model.Task;
 import org.example.storage.JSONFileStorage;
 import org.example.util.AutoIncrementIdGenerator;
 
+import java.util.List;
 import java.util.Map;
 
-public class AddAction implements IAction{
+public class AddAction implements Action {
 
     JSONFileStorage jsonFileStorage;
 
@@ -15,7 +16,9 @@ public class AddAction implements IAction{
     }
 
     @Override
-    public void perform(String[] input, Map<Integer, Task> taskMap) {
+    public void perform(String[] input) {
+        List<Task> taskList = jsonFileStorage.fetch();
+
         Task task = new Task();
         task.setId(AutoIncrementIdGenerator.generateId());
         StringBuilder sb = new StringBuilder();
@@ -23,8 +26,8 @@ public class AddAction implements IAction{
             sb.append(input[i]).append(" ");
         }
         task.setDescription(sb.toString().replace("\"", "").trim());
-        taskMap.put(task.getId(), task);
 
-        jsonFileStorage.save(taskMap);
+        taskList.add(task);
+        jsonFileStorage.save(taskList);
     }
 }

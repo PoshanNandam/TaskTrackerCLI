@@ -17,4 +17,13 @@ public class Task {
         this.updatedAt = new Date();
         this.status = Status.TODO;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

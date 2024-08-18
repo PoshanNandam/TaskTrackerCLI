@@ -2,17 +2,23 @@ package org.example.actions;
 
 import org.example.model.Status;
 import org.example.model.Task;
+import org.example.storage.JSONFileStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ListAction implements IAction{
+public class ListAction implements Action {
 
+    JSONFileStorage jsonFileStorage;
+
+    public ListAction(JSONFileStorage jsonFileStorage){
+        this.jsonFileStorage = jsonFileStorage;
+    }
     @Override
-    public void perform(String[] input, Map<Integer, Task> taskMap) {
-        List<Task> taskList = new ArrayList<>(taskMap.values());
+    public void perform(String[] input) {
+        List<Task> taskList = jsonFileStorage.fetch();
 
         if(input.length > 2){
             switch (input[2]){
@@ -37,6 +43,6 @@ public class ListAction implements IAction{
             }
         }
 
-        System.out.println(taskList);
+        for(Task task: taskList) System.out.println(task);
     }
 }
